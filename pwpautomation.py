@@ -756,6 +756,7 @@ class PWPInvoiceAutomation:
                     root.destroy()
                     self.driver.quit()
                     logging.info("Browser closed.")
+                    
 
 # if __name__ == "__main__":
 #     # URLs and file paths

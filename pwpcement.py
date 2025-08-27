@@ -150,6 +150,7 @@ def create_gui():
     center_window(root, window_width, window_height)
     root.configure(bg=ECO_GREEN)
     root.resizable(False, False)
+    
 
     tk.Label(root, text="Choose an action", font=("Arial", 14, "bold"), bg=ECO_GREEN, fg="white").pack(pady=25)
 

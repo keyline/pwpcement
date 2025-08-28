@@ -144,13 +144,12 @@ def open_upload_form(parent):
 
 def create_gui():
     root = tk.Tk()
-    root.title("EcoEx :: PWP Cement [R-27082025]")
+    root.title("EcoEx :: PWP Cement Invoice Automation R-[28082025]")
     window_width = 500
     window_height = 350
     center_window(root, window_width, window_height)
     root.configure(bg=ECO_GREEN)
     root.resizable(False, False)
-    
 
     tk.Label(root, text="Choose an action", font=("Arial", 14, "bold"), bg=ECO_GREEN, fg="white").pack(pady=25)
 

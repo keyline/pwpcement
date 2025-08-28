@@ -189,6 +189,23 @@ class PWPInvoiceAutomation:
             raise
     
     
+    def scroll_to_text(self,text_value):
+        js_code="""
+        const text =arguments[0] ; 
+        const xpath = `//*[text()="${text}"]`;
+        const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+        const element = result.singleNodeValue;
+
+        if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+        console.warn("Element not found with text:", text);
+        }
+        """
+
+        self.driver.execute_script(js_code,text_value)
+    
+    
     def invoice_form_input_xpath_helper(self, element_xpath, value_to_fill):
         
         js_xpath_code = """
@@ -434,10 +451,8 @@ class PWPInvoiceAutomation:
                 
                 time.sleep(2)
                 
-                
-                
-                
-                
+                self.scroll_to_text("Add sales quantity")
+                time.sleep(1)
                 quantity_sold_xpath = '/html/body/app-root/app-epr/app-pwp-sales/div[1]/div/form/div[1]/div/div/div[2]/table/tbody/tr/td[9]/input'
                 quantity_sold = self.driver.find_element(By.XPATH, quantity_sold_xpath)
                 
@@ -652,7 +667,6 @@ class PWPInvoiceAutomation:
             'Bank Account No.',
             'IFSC Code',
             'Principal Amount',
-            'Total Amount',
             'GST Amount',
             'Sales Date',
             'EPR Invoice Generated',
@@ -681,7 +695,6 @@ class PWPInvoiceAutomation:
                 row['Bank Account No.'],
                 row['IFSC Code'],
                 row['Principal Amount'],
-                row['Total Amount'],
                 row['GST Amount'],
                 row['Sales Date'],
                 row['EPR Invoice Generated'],
@@ -756,26 +769,25 @@ class PWPInvoiceAutomation:
                     root.destroy()
                     self.driver.quit()
                     logging.info("Browser closed.")
-                    
 
-# if __name__ == "__main__":
-#     # URLs and file paths
-#     login_url = "https://eprplastic.cpcb.gov.in/#/plastic/home"      # Manual login page
-#     form_url = "https://eprplastic.cpcb.gov.in/#/epr/pwp-sales"        # Form page
-#     excel_file = "C:/Users/User/Downloads/Automation/input.xlsx"
-#     orig_pdf_var = "C:/Users/User/Downloads/Automation/JSW Cement PWP Sample Data\Invoices"
-#     epr_pdf_var = "C:/Users/User/Downloads/Automation/epr_pdf_var"
-#     output_excel_var ="C:/Users/User/Downloads/Automation/output.xlsx"
+if __name__ == "__main__":
+    # URLs and file paths
+    login_url = "https://eprplastic.cpcb.gov.in/#/plastic/home"      # Manual login page
+    form_url = "https://eprplastic.cpcb.gov.in/#/epr/pwp-sales"        # Form page
+    excel_file = "C:/Users/User/Downloads/Automation/input.xlsx"
+    orig_pdf_var = "C:/Users/User/Downloads/Automation/JSW Cement PWP Sample Data\Invoices"
+    epr_pdf_var = "C:/Users/User/Downloads/Automation/epr_pdf_var"
+    output_excel_var ="C:/Users/User/Downloads/Automation/output.xlsx"
 
 
-#     bot = PWPInvoiceAutomation(excel_file, login_url, form_url, orig_pdf_var, epr_pdf_var, output_excel_var)
-#     bot.run()
+    bot = PWPInvoiceAutomation(excel_file, login_url, form_url, orig_pdf_var, epr_pdf_var, output_excel_var)
+    bot.run()
     
     
-#     # # root = tk.Tk()
-#     # # root.withdraw()
-#     # # # Make the messagebox topmost
-#     # # root.wm_attributes('-topmost', 1)
-#     # # messagebox.showinfo("Manual Logout", "🔐 Logout manually from the portal.\nClick OK once done.")
-#     # # root.destroy()
-#     # # time.sleep(1)
+    # # root = tk.Tk()
+    # # root.withdraw()
+    # # # Make the messagebox topmost
+    # # root.wm_attributes('-topmost', 1)
+    # # messagebox.showinfo("Manual Logout", "🔐 Logout manually from the portal.\nClick OK once done.")
+    # # root.destroy()
+    # # time.sleep(1)

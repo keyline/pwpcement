@@ -356,7 +356,6 @@ class PWPUploadAutomation:
             'Bank Account No.',
             'IFSC Code',
             'Principal Amount',
-            'Total Amount',
             'GST Amount',
             'Sales Date',
             'EPR Invoice Generated',
@@ -385,7 +384,6 @@ class PWPUploadAutomation:
                 row['Bank Account No.'],
                 row['IFSC Code'],
                 row['Principal Amount'],
-                row['Total Amount'],
                 row['GST Amount'],
                 row['Sales Date'],
                 row['EPR Invoice Generated'],
@@ -468,7 +466,6 @@ class PWPUploadAutomation:
     
     
 #     excel_file = "F:/Ananda/generated_output.xlsx"
-
 #     epr_pdf = "F:/Ananda/generated_pdf"
 #     result_excel = "F:/Ananda/upload_output.xlsx"
 

@@ -275,7 +275,7 @@ class PWPUploadAutomation:
                 
                 # ##### Push file to file browser [END]
 
-                time.sleep(5)
+                time.sleep(10)
                 
                 ##### Hit Uploadbutton [START]
                 js_uploadbutton = """

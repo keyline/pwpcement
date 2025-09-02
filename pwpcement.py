@@ -144,7 +144,7 @@ def open_upload_form(parent):
 
 def create_gui():
     root = tk.Tk()
-    root.title("EcoEx :: PWP Cement Invoice Automation R-[28082025]")
+    root.title("EcoEx :: PWP Cement Invoice Automation R-[02092025]")
     window_width = 500
     window_height = 350
     center_window(root, window_width, window_height)

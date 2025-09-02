@@ -770,24 +770,24 @@ class PWPInvoiceAutomation:
                     self.driver.quit()
                     logging.info("Browser closed.")
 
-if __name__ == "__main__":
-    # URLs and file paths
-    login_url = "https://eprplastic.cpcb.gov.in/#/plastic/home"      # Manual login page
-    form_url = "https://eprplastic.cpcb.gov.in/#/epr/pwp-sales"        # Form page
-    excel_file = "C:/Users/User/Downloads/Automation/input.xlsx"
-    orig_pdf_var = "C:/Users/User/Downloads/Automation/JSW Cement PWP Sample Data\Invoices"
-    epr_pdf_var = "C:/Users/User/Downloads/Automation/epr_pdf_var"
-    output_excel_var ="C:/Users/User/Downloads/Automation/output.xlsx"
+# if __name__ == "__main__":
+#     # URLs and file paths
+#     login_url = "https://eprplastic.cpcb.gov.in/#/plastic/home"      # Manual login page
+#     form_url = "https://eprplastic.cpcb.gov.in/#/epr/pwp-sales"        # Form page
+#     excel_file = "C:/Users/User/Downloads/Automation/input.xlsx"
+#     orig_pdf_var = "C:/Users/User/Downloads/Automation/JSW Cement PWP Sample Data\Invoices"
+#     epr_pdf_var = "C:/Users/User/Downloads/Automation/epr_pdf_var"
+#     output_excel_var ="C:/Users/User/Downloads/Automation/output.xlsx"
 
 
-    bot = PWPInvoiceAutomation(excel_file, login_url, form_url, orig_pdf_var, epr_pdf_var, output_excel_var)
-    bot.run()
+#     bot = PWPInvoiceAutomation(excel_file, login_url, form_url, orig_pdf_var, epr_pdf_var, output_excel_var)
+#     bot.run()
     
     
-    # # root = tk.Tk()
-    # # root.withdraw()
-    # # # Make the messagebox topmost
-    # # root.wm_attributes('-topmost', 1)
-    # # messagebox.showinfo("Manual Logout", "🔐 Logout manually from the portal.\nClick OK once done.")
-    # # root.destroy()
-    # # time.sleep(1)
+#      # root = tk.Tk()
+#      # root.withdraw()
+#      # # Make the messagebox topmost
+#      # root.wm_attributes('-topmost', 1)
+#      # messagebox.showinfo("Manual Logout", "🔐 Logout manually from the portal.\nClick OK once done.")
+#      # root.destroy()
+#      # time.sleep(1)

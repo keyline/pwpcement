@@ -155,7 +155,21 @@ class PWPUploadAutomation:
     def is_null_string(self, s):
         return str(s).strip().lower() in ['none', 'null', 'nan', '']
         
-    
+    def scroll_to_text(self,text_value):
+        js_code="""
+        const text =arguments[0] ; 
+        const xpath = `//*[text()="${text}"]`;
+        const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+        const element = result.singleNodeValue;
+
+        if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+        console.warn("Element not found with text:", text);
+        }
+        """
+
+        self.driver.execute_script(js_code,text_value)
     
     def check_modal_visibility(self):
         
@@ -197,7 +211,7 @@ class PWPUploadAutomation:
         
         message = message.lower()
     
-        success_keywords = ["success", "successfully", "uploaded"]
+        success_keywords = ["success","Success","validatad", "successfully", "uploaded"]
         failure_keywords = ["error", "not"]
 
         if any(word in message for word in failure_keywords):
@@ -244,9 +258,21 @@ class PWPUploadAutomation:
                 """
                 self.driver.execute_script(js_searchbutton)
                 
+                # self.scroll_to_text("Sr.No")
+                # time.sleep(1)
+                for retry_attempt in range(25):
+                    # Getting number of row items
+                    search_table_rows = len(self.driver.find_elements(by=By.XPATH, value='.//*[@id="ScrollableSimpleTableBody"]/tr'))
+                    if search_table_rows > 0:
+                        break  # Stop if a final status is determined
+                    time.sleep(1)  # Wait 1 second before retrying
+                    logging.info(f'Tried search_table_rows:{retry_attempt}')
+                logging.info(f"search_table_rows: {search_table_rows}")
                 
-                time.sleep(15)
-                # Open Pop-up                
+                time.sleep(2)
+                # Open Pop-up
+                logging.info("Opening upload popup")   
+                             
                 js_upload_pop = """
                 var uploadiconclass = "fs-12 fa fa-exclamation-triangle color-red fs-15";
                 var element =document.getElementsByClassName(uploadiconclass)[0]
@@ -257,7 +283,7 @@ class PWPUploadAutomation:
                 time.sleep(3) # Testing
                 
                 # ##### Push file to file browser [START]
-                    
+                logging.info("Locating file input element")    
                 epr_file_input = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
 
                 # If it's hidden, make it visible
@@ -265,6 +291,7 @@ class PWPUploadAutomation:
 
                 # Set file path (must be absolute)
                 #file_path = os.path.abspath(f'{self.epr_files_path}/{str(row["EPR Number"])}.pdf')
+                logging.info(f"Uploading file: {file_path}")
                 epr_file_input.send_keys(file_path)
                 
                 self.driver.execute_script("""
@@ -275,7 +302,7 @@ class PWPUploadAutomation:
                 
                 # ##### Push file to file browser [END]
 
-                time.sleep(10)
+                time.sleep(8)
                 
                 ##### Hit Uploadbutton [START]
                 js_uploadbutton = """
@@ -288,14 +315,14 @@ class PWPUploadAutomation:
                 
                 
                 ##### Get upload success / failure status [START]
-                
+                logging.info("Checking upload status...")
                 status = "unknown"
-                for attempt in range(10):
+                for attempt in range(30):
                     status = self.get_invoice_upload_status()
                     if status in ("success", "failure"):
                         break  # Stop if a final status is determined
                     time.sleep(1)  # Wait 1 second before retrying
-                    logging.info(f'Tried:{attempt}')
+                    logging.info(f'Tried upload status:{attempt}')
                 
                 
                 upload_status = status
@@ -465,9 +492,9 @@ class PWPUploadAutomation:
 #     form_url = "https://eprplastic.cpcb.gov.in/#/epr/details/sales"        # Form page
     
     
-#     excel_file = "F:/Ananda/generated_output.xlsx"
-#     epr_pdf = "F:/Ananda/generated_pdf"
-#     result_excel = "F:/Ananda/upload_output.xlsx"
+#     excel_file = "F:/Ananda/Testing_for_FS/input.xlsx"
+#     epr_pdf = "F:\Ananda\Testing_for_FS\Invoice"
+#     result_excel = "F:/Ananda/Testing_for_FS/output1.xlsx"
 
 #     bot = PWPUploadAutomation(excel_file, login_url, form_url, epr_pdf, result_excel)
 #     bot.run()
